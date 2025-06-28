@@ -1,58 +1,89 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>USDTWallet</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="https://i.postimg.cc/ZqGF65LX/nex-token.png" type="image/png">
+  <link rel="icon" href="https://cryptologos.cc/logos/tether-usdt-logo.png" />
 </head>
 <body>
-  <div id="wallet-container">
-    <!-- Header -->
+  <div class="app">
     <header>
-      <div class="logo">USDTWallet</div>
-      <div id="connection-status" class="status disconnected">Offline</div>
-    </header><!-- Main Balance -->
-<section class="balance">
-  <h2>Balance</h2>
-  <div class="amount">$<span id="balance">15432.89</span> <span class="currency">USDT</span></div>
-  <div class="active-network">Nexora Network</div>
-</section>
+      <div class="logo">
+        <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="usdt" />
+        <div>
+          <h1>USDTWALLET</h1>
+          <p>Nexora Network Ready</p>
+        </div>
+      </div>
+      <div class="status offline">● Offline</div>
+    </header>
 
-<!-- Quick Actions -->
-<section class="quick-actions">
-  <button onclick="showTab('send')">Enviar</button>
-  <button onclick="showTab('receive')">Recibir</button>
-</section>
+    <main>
+      <section class="balance-card">
+        <p>Balance Total</p>
+        <h2>$15,432.89 <span>USDT</span></h2>
+        <div class="network">
+          <span>Red Activa</span>
+          <span class="chip">BSC</span>
+        </div>
+        <div class="actions">
+          <button class="send">↗ Enviar</button>
+          <button class="receive">↙ Recibir</button>
+          <button class="refresh">⟳</button>
+        </div>
+      </section>
 
-<!-- Tabs -->
-<section id="tabs">
-  <div id="home-tab" class="tab active">
-    <h3>Inicio</h3>
-    <p>Bienvenido a tu USDTWallet operando sobre Nexora Blockchain.</p>
+      <section class="networks">
+        <h3>Seleccionar Red</h3>
+        <div class="network-grid">
+          <div>Nexora</div>
+          <div>Ethereum</div>
+          <div>Tron</div>
+          <div class="active">BSC</div>
+          <div>Polygon</div>
+          <div>Arbitrum</div>
+        </div>
+      </section>
+
+      <section class="features">
+        <div class="card">
+          <h4>Trading</h4>
+          <p>Intercambiar tokens</p>
+        </div>
+        <div class="card">
+          <h4>Staking</h4>
+          <p>Generar rewards</p>
+        </div>
+      </section>
+
+      <section class="transactions">
+        <h3>Transacciones Recientes <a href="#">Ver todas</a></h3>
+        <div class="tx">
+          <span class="in">+500</span>
+          <span>nexora • 2 min ago</span>
+          <span class="confirmed">confirmed</span>
+        </div>
+        <div class="tx">
+          <span class="out">-250</span>
+          <span>bsc • 5 min ago</span>
+          <span class="confirmed">confirmed</span>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <nav>
+        <a class="active">Inicio</a>
+        <a>Enviar</a>
+        <a>Recibir</a>
+        <a>Historial</a>
+        <a>Config</a>
+      </nav>
+    </footer>
   </div>
 
-  <div id="send-tab" class="tab">
-    <h3>Enviar USDT</h3>
-    <input type="text" id="send-recipient" placeholder="Dirección del destinatario" />
-    <input type="number" id="send-amount" placeholder="Cantidad" />
-    <button onclick="sendUSDT()">Enviar</button>
-  </div>
-
-  <div id="receive-tab" class="tab">
-    <h3>Recibir USDT</h3>
-    <p>Tu dirección en Nexora:</p>
-    <div class="wallet-address" id="receive-address">0x742d35Cc6B5aA5C1A4E6b8d7F9e2A8b3C4d5E6f7</div>
-    <button onclick="copyAddress()">Copiar Dirección</button>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer>
-  <button onclick="showTab('home')">Inicio</button>
-  <button onclick="showTab('send')">Enviar</button>
-  <button onclick="showTab('receive')">Recibir</button>
-</footer>
-
-  </div>  <script src="script.js"></script></body>
+  <script src="script.js"></script>
+</body>
 </html>
