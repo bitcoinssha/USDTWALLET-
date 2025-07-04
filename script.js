@@ -1,59 +1,66 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Actualiza la hora cada segundo
-  setInterval(() => {
-    const now = new Date();
-    const time = now.toLocaleTimeString();
-    const reloj = document.getElementById("clock");
-    if (reloj) reloj.textContent = time;
-  }, 1000);
+const provider = new ethers.JsonRpcProvider("https://rpc.nexora.network");
+let wallet;
 
-  // Cambiar de red visualmente
-  const networkItems = document.querySelectorAll(".network-grid div");
-  networkItems.forEach(item => {
-    item.addEventListener("click", () => {
-      networkItems.forEach(i => i.classList.remove("active"));
-      item.classList.add("active");
-    });
-  });
+function initWallet() {
+    const storedKey = localStorage.getItem("nexoraKey");
+    if (storedKey) {
+        const decrypted = CryptoJS.AES.decrypt(storedKey, "clave-secreta").toString(CryptoJS.enc.Utf8);
+        wallet = new ethers.Wallet(decrypted, provider);
+        updateUI();
+    } else {
+        wallet = ethers.Wallet.createRandom().connect(provider);
+        const encrypted = CryptoJS.AES.encrypt(wallet.privateKey, "clave-secreta").toString();
+        localStorage.setItem("nexoraKey", encrypted);
+        alert("Wallet creada: " + wallet.address);
+        updateUI();
+    }
+}
 
-  // Botones de navegación inferior
-  const navLinks = document.querySelectorAll("nav a");
-  navLinks.forEach(link => {
-    link.addEventListener("click", () => {
-      navLinks.forEach(l => l.classList.remove("active"));
-      link.classList.add("active");
-    });
-  });
+async function updateUI() {
+    document.getElementById("walletAddress").innerText = wallet.address;
+    const balance = await provider.getBalance(wallet.address);
+    document.getElementById("mainBalance").innerText = ethers.formatEther(balance);
+}
 
-  // Copiar dirección al portapapeles
-  const copiarBtn = document.getElementById("copiarDireccion");
-  if (copiarBtn) {
-    copiarBtn.addEventListener("click", () => {
-      const direccion = document.getElementById("direccionNexora").textContent;
-      navigator.clipboard.writeText(direccion).then(() => {
-        copiarBtn.textContent = "Copiado ✔️";
-        setTimeout(() => {
-          copiarBtn.textContent = "Copiar Dirección";
-        }, 2000);
-      });
-    });
-  }
+function copyAddress() {
+    navigator.clipboard.writeText(wallet.address);
+    alert("Dirección copiada.");
+}
 
-  // Simular envío (por ahora solo visual)
-  const enviarBtn = document.getElementById("enviarBtn");
-  if (enviarBtn) {
-    enviarBtn.addEventListener("click", () => {
-      const destino = document.getElementById("destinoInput").value;
-      const cantidad = document.getElementById("cantidadInput").value;
+function openNetworkModal() {
+    alert("Pronto podrás cambiar de red.");
+}
 
-      if (destino && cantidad) {
-        alert(`Simulado: Enviando ${cantidad} USDT a ${destino}`);
-        // Aquí puedes añadir la lógica real de Web3 si deseas
-        document.getElementById("destinoInput").value = "";
-        document.getElementById("cantidadInput").value = "";
-      } else {
-        alert("Por favor completa ambos campos.");
-      }
-    });
-  }
-});
+function openAccountModal() {
+    alert("Funciones de cuenta próximamente.");
+}
+
+function openReceiveModal() {
+    alert("Función de recibir tokens próximamente.");
+}
+
+function openSendModal() {
+    const to = prompt("Dirección destino:");
+    const amount = prompt("Cantidad NXR:");
+    if (ethers.isAddress(to) && parseFloat(amount) > 0) {
+        sendTransaction(to, amount);
+    } else {
+        alert("Datos inválidos.");
+    }
+}
+
+async function sendTransaction(to, amount) {
+    try {
+        const tx = await wallet.sendTransaction({
+            to,
+            value: ethers.parseEther(amount)
+        });
+        alert("Enviado: " + tx.hash);
+        await tx.wait();
+        updateUI();
+    } catch (err) {
+        alert("Error: " + err.message);
+    }
+}
+
+initWallet();
