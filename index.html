@@ -1,89 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>USDTWallet</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="https://cryptologos.cc/logos/tether-usdt-logo.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexora Wallet</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
-  <div class="app">
-    <header>
-      <div class="logo">
-        <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="usdt" />
-        <div>
-          <h1>USDTWALLET</h1>
-          <p>Nexora Network Ready</p>
+    <div class="wallet-container">
+        <div class="wallet-header">
+            <h1>🦊 Nexora Wallet</h1>
+            <div class="network-selector" onclick="openNetworkModal()">
+                <span id="currentNetwork">Nexora Mainnet</span>
+            </div>
         </div>
-      </div>
-      <div class="status offline">● Offline</div>
-    </header>
-
-    <main>
-      <section class="balance-card">
-        <p>Balance Total</p>
-        <h2>$15,432.89 <span>USDT</span></h2>
-        <div class="network">
-          <span>Red Activa</span>
-          <span class="chip">BSC</span>
+        <div class="wallet-content">
+            <div class="account-section">
+                <div class="account-header">
+                    <div class="account-name">Cuenta 1</div>
+                    <button class="account-menu" onclick="openAccountModal()">⋮</button>
+                </div>
+                <div class="account-address" onclick="copyAddress()" title="Clic para copiar">
+                    <span id="walletAddress">0x0000...0000</span>
+                </div>
+                <div class="balance-section">
+                    <div class="balance-amount"><span id="mainBalance">0.00</span> NXR</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="openReceiveModal()">📥 Recibir</button>
+                    <button class="action-btn send" onclick="openSendModal()">📤 Enviar</button>
+                </div>
+            </div>
         </div>
-        <div class="actions">
-          <button class="send">↗ Enviar</button>
-          <button class="receive">↙ Recibir</button>
-          <button class="refresh">⟳</button>
-        </div>
-      </section>
-
-      <section class="networks">
-        <h3>Seleccionar Red</h3>
-        <div class="network-grid">
-          <div>Nexora</div>
-          <div>Ethereum</div>
-          <div>Tron</div>
-          <div class="active">BSC</div>
-          <div>Polygon</div>
-          <div>Arbitrum</div>
-        </div>
-      </section>
-
-      <section class="features">
-        <div class="card">
-          <h4>Trading</h4>
-          <p>Intercambiar tokens</p>
-        </div>
-        <div class="card">
-          <h4>Staking</h4>
-          <p>Generar rewards</p>
-        </div>
-      </section>
-
-      <section class="transactions">
-        <h3>Transacciones Recientes <a href="#">Ver todas</a></h3>
-        <div class="tx">
-          <span class="in">+500</span>
-          <span>nexora • 2 min ago</span>
-          <span class="confirmed">confirmed</span>
-        </div>
-        <div class="tx">
-          <span class="out">-250</span>
-          <span>bsc • 5 min ago</span>
-          <span class="confirmed">confirmed</span>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <nav>
-        <a class="active">Inicio</a>
-        <a>Enviar</a>
-        <a>Recibir</a>
-        <a>Historial</a>
-        <a>Config</a>
-      </nav>
-    </footer>
-  </div>
-
-  <script src="script.js"></script>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
